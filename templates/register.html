@@ -1,0 +1,79 @@
+<html>
+    <head>
+      <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2350e3c2%22></rect><path fill=%22%23115d5d%22 d=%22M26.21 27.25Q34.92 27.25 39.86 31.41Q44.80 35.57 44.80 42.85L44.80 42.85Q44.80 50.13 39.86 54.26Q34.92 58.38 26.21 58.38L26.21 58.38L13.99 58.38L13.99 72.75L9.18 72.75L9.18 27.25L26.21 27.25ZM26.08 54.16Q32.84 54.16 36.41 51.20Q39.99 48.24 39.99 42.85L39.99 42.85Q39.99 37.32 36.41 34.37Q32.84 31.41 26.08 31.41L26.08 31.41L13.99 31.41L13.99 54.16L26.08 54.16ZM72.23 27.25Q80.94 27.25 85.88 31.41Q90.82 35.57 90.82 42.85L90.82 42.85Q90.82 50.13 85.88 54.26Q80.94 58.38 72.23 58.38L72.23 58.38L60.01 58.38L60.01 72.75L55.20 72.75L55.20 27.25L72.23 27.25ZM72.10 54.16Q78.86 54.16 82.44 51.20Q86.01 48.24 86.01 42.85L86.01 42.85Q86.01 37.32 82.44 34.37Q78.86 31.41 72.10 31.41L72.10 31.41L60.01 31.41L60.01 54.16L72.10 54.16Z%22></path></svg>" />
+        <meta charset="UTF-8">
+        <title> Register </title>
+        <link rel="stylesheet" href="style.css">              
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <style>
+      *{
+          margin: 0;
+          padding: 0;
+          
+        }
+        body{
+        
+          background-color: #051367;
+          /* font-size: 2.5rem; */
+          font-weight: bold;
+        }
+        h1{
+          margin-top: 30px;
+          margin-left: 290px;
+        }
+
+        p{
+          margin-left: 200px;
+          margin-top: 30px;
+          font-size: 1.5rem;
+        }
+        .container{
+         
+         /* border: 1px solid blue; */
+         margin-top: 30px;
+         background-color: white;
+         width:800px;
+         height: 700px;
+         border-radius: 20px;
+         box-shadow: 5px 10px 18px 10px black;
+         padding: 10px;
+        
+       }
+       input[type="text"],input[type="password"]{
+         width: 500px;
+         padding:5px;
+          color: black;
+          margin-left: 100px;
+       }
+         input[type="submit"]{
+           margin-left:300px;
+         }
+    
+    </style>
+      </head>
+    <body></br></br/>
+          <div class="container">
+                <h1>Register</h1>
+             </br></br></br>
+            <h2 class="word">
+                <form action="/register" method="post">
+                  <div class="msg">{{ msg }}</div>
+                    <input id="username" name="username" type="text" placeholder="Enter username" class="form-control" autocomplete="off" required/></br></br>
+                    <input id="email" name="email" type="text" placeholder="Enter Your Email ID" class="form-control" autocomplete="off" required/></br></br>
+                    <input id="password" name="password" type="password" placeholder="Enter Your Password" class="form-control"/></br></br>
+                    <input type="submit" class="btn btn-primary" value="Sign Up"></br>
+                </form>
+            </h2>
+            <p class="bottom">Already have an account?  <a class="bottom" href="/login"> Sign In here</a></p>
+          </div>
+        </div>
+    </body>
+</html>

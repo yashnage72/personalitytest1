@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2350e3c2%22></rect><path fill=%22%23115d5d%22 d=%22M26.21 27.25Q34.92 27.25 39.86 31.41Q44.80 35.57 44.80 42.85L44.80 42.85Q44.80 50.13 39.86 54.26Q34.92 58.38 26.21 58.38L26.21 58.38L13.99 58.38L13.99 72.75L9.18 72.75L9.18 27.25L26.21 27.25ZM26.08 54.16Q32.84 54.16 36.41 51.20Q39.99 48.24 39.99 42.85L39.99 42.85Q39.99 37.32 36.41 34.37Q32.84 31.41 26.08 31.41L26.08 31.41L13.99 31.41L13.99 54.16L26.08 54.16ZM72.23 27.25Q80.94 27.25 85.88 31.41Q90.82 35.57 90.82 42.85L90.82 42.85Q90.82 50.13 85.88 54.26Q80.94 58.38 72.23 58.38L72.23 58.38L60.01 58.38L60.01 72.75L55.20 72.75L55.20 27.25L72.23 27.25ZM72.10 54.16Q78.86 54.16 82.44 51.20Q86.01 48.24 86.01 42.85L86.01 42.85Q86.01 37.32 82.44 34.37Q78.86 31.41 72.10 31.41L72.10 31.41L60.01 31.41L60.01 54.16L72.10 54.16Z%22></path></svg>" />
+  <title>Predictor Application</title>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='static/ques.css') }}" /> -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .alert {
+      background-color: "red";
+      padding: 1rem;
+      border-radius: 5px;
+      color: white;
+      margin: 1rem;
+    }
+
+    body {
+  background-image: url("https://images.unsplash.com/photo-1531386450450-969f935bd522?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80");
+  /* background-color: #d5fefd; */
+  /* background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Montserrat, sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+}
+/* Slider  */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 30px;
+}
+.slider {
+  background-color: #4fd3c4;
+  /* background-image: linear-gradient(315deg, #60dfcd 0%, #1e9afe 74%); */
+  width: 750px;
+  height: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.slide {
+  background-color: #219f94;
+  /* background-image: linear-gradient(45deg, #f5f186 0%, #9dfbc8 74%); */
+  color: white;
+  width: 650px;
+  height: 400px;
+  margin: 80px;
+  padding: 30px;
+  position: absolute;
+  transition: z-index 1s linear, opacity 1s linear, scale 1s linear;
+  opacity: 0.2;
+  transform: scale(0.5);
+  border-radius: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+form{
+  width: 1300px;
+}
+/* Buttons */
+.btn {
+  background-color: #219f94;
+  /* background-image: linear-gradient(315deg, #60dfcd 0%, #1e9afe 74%); */
+  border: 3px solid black;
+  width: 80px;
+  height: 80px;
+  font-size: 30px;
+  border-radius: 50%;
+  color: white;
+}
+.btn:active {
+  transform: translateY(2px);
+}
+/* animations*/
+@keyframes right__slide {
+  0% {
+    transform: translateX(0%) scale(0.5);
+    opacity: 0.2;
+    z-index: 1;
+  }
+  20% {
+    transform: translateX(100%) scale(0.5);
+  }
+  80% {
+    transform: translateX(100%) scale(1);
+    z-index: 10;
+  }
+  100% {
+    transform: translateX(0%) scale(1);
+    z-index: 10;
+    opacity: 1;
+  }
+}
+@keyframes left__slide {
+  0% {
+    transform: translateX(0%) scale(0.5);
+    opacity: 0.2;
+    z-index: 1;
+  }
+  20% {
+    transform: translateX(-100%) scale(0.5);
+  }
+  80% {
+    transform: translateX(-100%) scale(1);
+    z-index: 10;
+  }
+  100% {
+    transform: translateX(0%) scale(1);
+    z-index: 10;
+    opacity: 1;
+  }
+}
+@keyframes prev__Slide {
+  0% {
+    z-index: 10;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  70% {
+    z-index: 9;
+  }
+
+  100% {
+    z-index: 9;
+    opacity: 1;
+    transform: translateX(0) scale(0.5);
+  }
+}
+/* animation Classes*/
+.rightSlide {
+  animation: right__slide 1s linear 1;
+}
+.leftSlide {
+  animation: left__slide 1s linear 1;
+}
+.animatePrevSlide {
+  animation: prev__Slide 1s linear 1;
+}
+/* active states */
+.active {
+  z-index: 10;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+.prevSlide {
+  z-index: 9;
+  opacity: 1;
+  transform: translateX(0) scale(0.5);
+}
+input[type="radio"],
+label {
+  /* margin-left: -150px; */
+  float: left;
+}
+.container{
+  margin-left: 507px;
+}
+ .arrows{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   margin-top: -309px
+ }
+ .hbt{
+    background-color: white;
+    color: black;
+    margin-top: 264px;
+    margin-left: 876px;
+    font-size: 1.2rem;
+    
+ }
+ .hbtlink{
+   text-decoration: none;
+ }
+ #calc_btn{
+   margin: 180px;
+   color: green;
+   background-color: #C1F8CF;
+   font-size: 1rem;
+ }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h3>Please Fill the questionnaire</h3>
+  </div>
+
+  <!-- Form -->
+  <!-- <div class="container"> -->
+    
+    <form action="/predict" method="POST">
+
+      <div>
+        <!-- start of carousel -->
+       <div class="container">
+      <!-- <div class="btn btn__left">&larr;</div> -->
+      <div class="slider">
+        <div class="slide active">
+          <label for="Number One">Please Enter your Gender (For Male, Enter '1' and for Female, Enter '0')</label>
+          <br>
+          <br>
+        <input type="text" placeholder="First Number" class="u-full-width" name="num1" required/>
+          
+        <label for="Number Two">Please Enter your Age </label>
+        <br>
+        <br>
+        <br>
+        <input type="text" placeholder="Second Number" class="u-full-width" name="num2" required/>
+         </div>
+         <!-- start of 44 qs -->
+         <div class="slide">
+          <label for="Question 1"> Q.1 I see myself as someone who is talkative.</label>
+          <br />
+          <br />
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_1" value="1" />1 - Strongly Disagree
+          </label>
+          <br />
+          <br />
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_1" value="2" />2 - Disagree
+          </label>
+          <br />
+          <br />
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_1" value="3" />3 - Neutral
+          </label>
+          <br />
+          <br />
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_1" value="4" />4 - Agree
+          </label>
+          <br />
+          <br />
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_1" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q1 -->
+         <div class="slide">
+          <label for="Question 2"> Q.2 I see myself as someone who tends to find fault in others.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_1" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_1" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_1" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_1" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_1" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q2 -->
+         <div class="slide">
+          <label for="Question 3"> Q.3 I see myself as someone who does a thorough job.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_1" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_1" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_1" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_1" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_1" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q3 -->
+         <div class="slide">
+          <label for="Question 4"> Q.4 I see myself as someone who is depressed.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_1" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_1" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_1" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_1" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_1" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q4 -->
+         <div class="slide">
+
+          <label for="Question 5"> Q.5 I see myself as someone who is original, unique, and comes up with new
+            ideas.</label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_1" value="1" />1 - Strongly Disagree
+          </label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_1" value="2" />2 - Disagree
+          </label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_1" value="3" />3 - Neutral
+          </label>
+           <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_1" value="4" />4 - Agree
+          </label>
+           <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_1" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q5 -->
+         <div class="slide">
+          <label for="Question 6"> Q.6 see myself as someone who is reserved.</label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_2" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_2" value="2" />2 - Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_2" value="3" />3 - Neutral
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_2" value="4" />4 - Agree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_2" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q6 -->
+         <div class="slide">
+          <label for="Question 7"> Q.7 I see myself as someone who is helpful and unselfish when it comes to
+            others.</label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_2" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_2" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_2" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_2" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_2" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!--end of q7  -->
+         <div class="slide">
+          <label for="Question 8"> Q.8 I see myself as someone who can be somewhat careless.</label>
+           <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_2" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_2" value="2" />2 - Disagree
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_2" value="3" />3 - Neutral
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_2" value="4" />4 - Agree
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_2" value="5" />5 - Strongly Agree
+          </label>   
+
+         </div>
+         <!--  end of q8-->
+         <div class="slide">      
+          <label for="Question 9"> Q.9 I see myself as someone who is relaxed and remains calm in high-pressure
+            situations.</label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_2" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_2" value="2" />2 - Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_2" value="3" />3 - Neutral
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_2" value="4" />4 - Agree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_2" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!--end of q9 -->
+         <div class="slide">
+          <label for="Question 10"> Q.10 I see myself as someone who is curious about many different things.</label>
+          <br>
+          <br>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_2" value="1" />1 - Strongly Disagree
+          </label>
+          <br>
+          <br>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_2" value="2" />2 - Disagree
+          </label>
+          <br>
+          <br>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_2" value="3" />3 - Neutral
+          </label>
+          <br>
+          <br>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_2" value="4" />4 - Agree
+          </label>
+          <br>
+          <br>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_2" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q10 -->
+         <div class="slide">
+          <label for="Question 11"> Q.11 I see myself as someone who is full of energy.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_3" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_3" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_3" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_3" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_3" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q11 -->
+         <div class="slide">
+          <label for="Question 12"> Q.12 I see myself as someone who starts arguments with others.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_3" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_3" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_3" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_3" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_3" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q12 -->
+         <div class="slide">
+          <label for="Question 13"> Q.13 I see myself as someone who is a reliable worker.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_3" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_3" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_3" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_3" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_3" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q13 -->
+         <div class="slide">
+          <label for="Question 14"> Q.14 I see myself as someone who can be tense.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_3" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_3" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_3" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_3" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_3" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q14 -->
+         <div class="slide">
+          <label for="Question 15"> Q.15 I see myself as someone who is cerebral and enjoys thinking deeply.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_3" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_3" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_3" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_3" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_3" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q15 -->
+         <div class="slide">
+          <label for="Question 16"> Q.16 I see myself as someone who generates a lot of enthusiasm.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_4" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_4" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_4" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_4" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_4" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q16 -->
+         <div class="slide">
+
+          <label for="Question 17"> Q.17 I see myself as someone who has a forgiving nature.</label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_4" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_4" value="2" />2 - Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_4" value="3" />3 - Neutral
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_4" value="4" />4 - Agree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_4" value="5" />5 - Strongly Agree
+          </label>               
+         </div>
+          <!-- end of q17 -->
+         <div class="slide">
+          <label for="Question 18"> Q.18 I see myself as someone who tends to be disorganized.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_4" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_4" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_4" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_4" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_4" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q18 -->
+         <div class="slide">
+          <label for="Question 19"> Q.19 I see myself as someone who worries a lot.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_4" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_4" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_4" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_4" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_4" value="5" />5 - Strongly Agree
+          </label>                
+         </div>
+         <!-- end of q19 -->
+         <div class="slide">
+          <label for="Question 20"> Q.20 I see myself as someone who has an active imagination.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_4" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_4" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_4" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_4" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_4" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q20 -->
+         <div class="slide">
+          <label for="Question 21"> Q.21 I see myself as someone who tends to be quiet.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_5" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_5" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_5" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_5" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_5" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q21 -->
+         <div class="slide">
+          <label for="Question 22"> Q.22 I see myself as someone who is generally trusting.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_5" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_5" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_5" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_5" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_5" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q22 -->
+         <div class="slide">
+          <label for="Question 23"> Q.23 I see myself as someone who tends to be lazy.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_5" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_5" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_5" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_5" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_5" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q23 -->
+         <div class="slide">
+          <label for="Question 24"> Q.24 I see myself as someone who is emotionally stable and doesn't get upset
+            easily.</label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_5" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_5" value="2" />2 - Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_5" value="3" />3 - Neutral
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_5" value="4" />4 - Agree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_5" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q24 -->
+         <div class="slide">
+          <label for="Question 25"> Q.25 I see myself as someone who is inventive.</label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_5" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_5" value="2" />2 - Disagree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_5" value="3" />3 - Neutral
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_5" value="4" />4 - Agree
+          </label>
+          <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_5" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q25 -->
+         <div class="slide">
+          <label for="Question 26"> Q.26 I see myself as someone who has an assertive personality.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_6" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_6" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_6" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_6" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_6" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q26 -->
+         <div class="slide">
+          <label for="Question 27"> Q.27 I see myself as someone who can be cold and aloof.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_6" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_6" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_6" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_6" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_6" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q27 -->
+         <div class="slide">
+          <label for="Question 28"> Q.28 I see myself as someone who perseveres until the task is finished.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_6" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_6" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_6" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_6" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_6" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q28 -->
+         <div class="slide">
+          <label for="Question 29"> Q.29 I see myself as someone who can be moody.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_6" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_6" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_6" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_6" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_6" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q29 -->
+         <div class="slide">
+          <label for="Question 30"> Q.30 I see myself as someone who values artistic and creative experiences.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_6" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_6" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_6" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_6" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>   
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_6" value="5" />5 - Strongly Agree
+          </label>         
+         </div>
+         <!-- end of q30 -->
+         <div class="slide">
+          <label for="Question 31"> Q.31 I see myself as someone who is sometimes shy and inhibited.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_7" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_7" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_7" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_7" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_7" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q31 -->
+         <div class="slide">
+          <label for="Question 32"> Q.32 I see myself as someone who is considerate and kind to almost everyone.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_7" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_7" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_7" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_7" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_7" value="5" />5 - Strongly Agree
+          </label>    
+         </div>
+         <!-- end of q32 -->
+         <div class="slide">
+          <label for="Question 33"> Q.33 I see myself as someone who does things efficiently.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_7" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_7" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_7" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_7" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_7" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q33 -->
+         <div class="slide">
+          <label for="Question 34"> Q.34 I see myself as someone who remains calm in tense situations.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_7" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_7" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_7" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_7" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_7" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q34 -->
+         <div class="slide">
+          <label for="Question 35"> Q.35 I see myself as someone who prefers work that is routine.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_7" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_7" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_7" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_7" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_7" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q35 -->
+         <div class="slide">
+          <label for="Question 36"> Q.36 I see myself as someone who is outgoing and sociable.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_8" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_8" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_8" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_8" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_EXT_8" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q36 -->
+         <div class="slide">
+          <label for="Question 37"> Q.37 I see myself as someone who is sometimes rude to others.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_8" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_8" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_8" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_8" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_8" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q37 -->
+         <div class="slide">
+          <label for="Question 38"> Q.38 I see myself as someone who makes plans and follows through with them.</label>
+           <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_8" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_8" value="2" />2 - Disagree
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_8" value="3" />3 - Neutral
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_8" value="4" />4 - Agree
+          </label>
+          <br/>
+           <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_8" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q38 -->
+         <div class="slide">
+          <label for="Question 39"> Q.39 I see myself as someone who gets nervous easily.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_8" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_8" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_8" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_8" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_NEU_8" value="5" />5 - Strongly Agree
+          </label>
+
+         </div>
+         <!-- end of q39 -->
+         <div class="slide">
+          <label for="Question 40"> Q.40 I see myself as someone who likes to reflect and ponder different ideas.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_8" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_8" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_8" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_8" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_8" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q40 -->
+         <div class="slide">
+          <label for="Question 41"> Q.41 I see myself as someone who has few artistic interests.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_9" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_9" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_9" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_9" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_9" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q41 -->
+         <div class="slide">
+          <label for="Question 42"> Q.42 I see myself as someone who likes to cooperate with others.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_9" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_9" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_9" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_9" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_AGR_9" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q42 -->
+         <div class="slide">
+          <label for="Question 43"> Q.43 I see myself as someone who is easily distracted.</label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_9" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_9" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_9" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_9" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_CON_9" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <!-- end of q43 -->
+         <div class="slide">
+          <label for="Question 44"> Q.44 I see myself as someone who is sophisticated in art, music, or
+            literature.</label>
+            <br/>
+            <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_10" value="1" />1 - Strongly Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_10" value="2" />2 - Disagree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_10" value="3" />3 - Neutral
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_10" value="4" />4 - Agree
+          </label>
+          <br/>
+          <br/>
+          <label class="radio-inline">
+            <input type="radio" name="BFI_OPEN_10" value="5" />5 - Strongly Agree
+          </label>
+         </div>
+         <div class="slide">
+           <h2>Click to Finish the quiz</h2>
+          <input type="submit" value="Calculate & Predict" id="calc_btn" />
+         </div>
+         <!-- end of q44 -->
+         <!-- end of slide active -->
+        </div>
+        <!-- end of slider -->
+        <!-- <div class="btn btn__right">&rarr;</div> -->
+      </div>
+      <!-- end of container and carousel -->
+      </div>
+
+      <!-- <input type="submit" value="Calculate & Predict" id="calc_btn" /> -->
+      <!-- <br /> -->
+
+  </div>
+  <!-- end of div immmediately after form -->
+  </form>
+  <div class="arrows">
+    <button class="btn btn__left">&larr;</button>
+    <button class="btn btn__right">&rarr;</button>
+  </div>
+  <button class="hbt"><a class="hbtlink"href="/">Home</a></button>
+  <!-- </div> -->
+  <!-- end of before form  container -->
+  <script>
+    "use strict";
+      //Need to be Optimized
+
+      const slide = document.querySelectorAll(".slide");
+      const btnLeft = document.querySelector(".btn__left");
+      const btnRight = document.querySelector(".btn__right");
+
+      //Declaring variables
+      let currentPosition = 0;
+      let maxPosition = slide.length - 1;
+      //functions
+
+      const leftSlide = function () {
+        if (currentPosition === 0) {
+          currentPosition = maxPosition;
+        } else if (currentPosition >= 1) {
+          currentPosition--;
+        }
+        let prevSlide;
+        currentPosition == 4
+          ? (prevSlide = 0)
+          : (prevSlide = currentPosition + 1);
+
+        slide.forEach((s) => s.classList.remove("prevSlide"));
+        slide.forEach((s) => s.classList.remove("animatePrevSlide"));
+        slide.forEach((s) => s.classList.remove("rightSlide"));
+        slide.forEach((s) => s.classList.remove("leftSlide"));
+        slide.forEach((s) => s.classList.remove("active"));
+        slide[currentPosition].classList.add("leftSlide");
+        slide[currentPosition].classList.add("active");
+        slide[prevSlide].classList.add("prevSlide");
+        slide[prevSlide].classList.add("animatePrevSlide");
+      };
+      const rightSlide = function () {
+        if (currentPosition === maxPosition) {
+          currentPosition = 0;
+        } else {
+          currentPosition++;
+        }
+        let prevSlide;
+        currentPosition == 0
+          ? (prevSlide = maxPosition)
+          : (prevSlide = currentPosition - 1);
+
+        slide.forEach((s) => s.classList.remove("prevSlide"));
+        slide.forEach((s) => s.classList.remove("animatePrevSlide"));
+        slide.forEach((s) => s.classList.remove("rightSlide"));
+        slide.forEach((s) => s.classList.remove("leftSlide"));
+        slide.forEach((s) => s.classList.remove("active"));
+        slide[currentPosition].classList.add("rightSlide");
+        slide[currentPosition].classList.add("active");
+        slide[prevSlide].classList.add("prevSlide");
+        slide[prevSlide].classList.add("animatePrevSlide");
+      };
+      //Event Listeners
+
+      btnLeft.addEventListener("click", leftSlide);
+      btnRight.addEventListener("click", rightSlide);
+  </script>
+</body>
+</html>

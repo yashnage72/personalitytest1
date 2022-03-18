@@ -1,0 +1,50 @@
+.header {
+  padding: 5px 120px;
+  width: 150px;
+  height: 70px;
+  background-color: #ff1606;
+}
+
+.border {
+  padding: 80px 50px;
+  width: 1000px;
+  height: 500px;
+  border: 1px solid #0df540;
+  border-radius: 0px;
+  background-color: #9ac0cd;
+}
+
+.btn {
+  padding: 10px 40px;
+  background-color: #0bec83;
+  color: #ffffff;
+  font-style: oblique;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.textbox {
+  padding: 10px 40px;
+  background-color: #236b8e;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+::placeholder {
+  color: #ffffff;
+  opacity: 1;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.word {
+  color: #ffffff;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.bottom {
+  color: #030e14;
+  font-style: oblique;
+  font-weight: bold;
+}
